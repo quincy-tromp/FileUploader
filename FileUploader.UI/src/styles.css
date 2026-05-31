@@ -1,0 +1,21 @@
+/* Place global styles below */
+
+/* Sidebar layout styles */
+html, body, app-root {
+	height: 100%;
+}
+.app-shell {
+	min-height: 100vh;
+}
+.sidebar {
+	width: 250px;
+}
+.main-content {
+	overflow: auto;
+}
+
+@media (max-width: 767.98px) {
+	.sidebar {
+		display: none !important;
+	}
+}

@@ -1,0 +1,30 @@
+<div class="app-shell d-flex">
+	<aside class="sidebar d-none d-md-flex flex-column bg-dark text-white p-3">
+		<a class="navbar-brand text-white mb-3" href="#">FileUploader</a>
+		<hr class="text-secondary" />
+
+		<div class="mt-auto small text-secondary">&nbsp;</div>
+	</aside>
+
+	<div class="flex-grow-1 d-flex flex-column">
+		<header class="d-md-none bg-dark text-white p-2">
+			<div class="container-fluid">
+				<span class="h6 mb-0">FileUploader</span>
+			</div>
+		</header>
+
+		<main class="main-content p-4">
+            <h2 style="text-decoration: underline;">Hello, world!</h2>
+            <p><i>Store your files to Azure Blob Storage </i></p>
+
+            <section class="mt-5">
+                <app-file-upload></app-file-upload>
+            </section>
+
+            <section class="mt-5">
+                <app-stored-files></app-stored-files>
+            </section>
+
+		</main>
+	</div>
+</div>

@@ -62,11 +62,11 @@ namespace FileUploader.Api.Controllers
 
             var fileDto = fileToStore.ToDto();
 
-            return CreatedAtAction(nameof(GetStoredFile), new { id = fileDto.Id}, fileDto);
+            return CreatedAtAction(nameof(GetStoredFile), new { id = fileDto.Id }, fileDto);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStoredFile(string id)
+        public async Task<ActionResult<StoredFileDto>> GetStoredFile(string id)
         {
             var fileData = await appDbContext.StoredFiles.FindAsync(id);
             if (fileData is null)
@@ -76,6 +76,16 @@ namespace FileUploader.Api.Controllers
 
             var fileDto = fileData.ToDto();
             return Ok(fileDto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStoredFiles()
+        {
+            var storedFiles = await appDbContext.StoredFiles
+                .OrderByDescending(sf => sf.UploadedAtUtc)
+                .ToListAsync();
+            var filesDto = storedFiles.Select(sf => sf.ToDto()).ToList();
+            return Ok(filesDto);
         }
     }
 }

@@ -1,0 +1,31 @@
+<div class="stored-files">
+	<p>Your stored files:</p>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>File Name</th>
+				<th>Content Type</th>
+				<th>Uploaded At</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (file of files(); track file.id) {
+				<tr>
+					<td>{{ file.originalFileName }}</td>
+					<td>{{ file.contentType ?? 'N/A' }}</td>
+					<td>{{ file.uploadedAtUtc | date:'long' }}</td>
+					<td>
+						<a [href]="file.url" 
+                            class="input-group-text" 
+                            style="text-decoration: none; display: inline-block;"
+                            [download]="file.originalFileName">
+                        Download
+                        </a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
