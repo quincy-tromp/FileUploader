@@ -1,7 +1,7 @@
 import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FileUpload } from './file-upload/file-upload';
 import { StoredFiles } from './stored-files/stored-files';
-import { FileService } from './file-upload/file.service';
+import { FileService } from './shared/file.service';
 
 @Component({
   selector: 'app-root',

@@ -20,7 +20,7 @@ namespace FileUploader.Api.Database
                 .IsRequired()
                 .HasMaxLength(500);
 
-            modelBuilder.Entity<StoredFile>().Property(sf => sf.Url)
+            modelBuilder.Entity<StoredFile>().Property(sf => sf.BlobName)
                 .IsRequired()
                 .HasMaxLength(500);
 

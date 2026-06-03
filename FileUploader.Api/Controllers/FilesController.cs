@@ -35,13 +35,14 @@ namespace FileUploader.Api.Controllers
             var fileToStore = new StoredFile
             {
                 Id = StoredFile.NewId(),
+                BlobName = StoredFile.NewBlobName(),
                 OriginalFileName = uploadedFile.FileName,
                 ContentType = uploadedFile.ContentType,
                 FileSize = uploadedFile.Length,
                 UploadedAtUtc = DateTime.UtcNow
             };
 
-            var blobClient = blobContainerClient.GetBlobClient(fileToStore.Id);
+            var blobClient = blobContainerClient.GetBlobClient(fileToStore.BlobName);
 
             await using var stream = uploadedFile.OpenReadStream();
 
@@ -55,8 +56,6 @@ namespace FileUploader.Api.Controllers
                     }
                 });
 
-            fileToStore.Url = blobClient.Uri.ToString();
-
             appDbContext.StoredFiles.Add(fileToStore);
             await appDbContext.SaveChangesAsync();
 
@@ -65,17 +64,23 @@ namespace FileUploader.Api.Controllers
             return CreatedAtAction(nameof(GetStoredFile), new { id = fileDto.Id }, fileDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/download")]
         public async Task<ActionResult<StoredFileDto>> GetStoredFile(string id)
         {
-            var fileData = await appDbContext.StoredFiles.FindAsync(id);
-            if (fileData is null)
+            var file = await appDbContext.StoredFiles.FindAsync(id);
+            if (file is null)
             {
                 return NotFound();
             }
 
-            var fileDto = fileData.ToDto();
-            return Ok(fileDto);
+            var blobClient = blobContainerClient.GetBlobClient(file.BlobName);
+
+            var stream = await blobClient.OpenReadAsync();
+
+            return File(
+                stream, 
+                file.ContentType ?? "application/octet-stream",
+                file.OriginalFileName);    
         }
 
         [HttpGet]

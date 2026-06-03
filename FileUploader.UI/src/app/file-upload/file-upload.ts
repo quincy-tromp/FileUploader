@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FileService } from './file.service';
+import { FileService } from '../shared/file.service';
 
 @Component({
   selector: 'app-file-upload',

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FileService } from '../file-upload/file.service';
+import { FileService } from '../shared/file.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -11,4 +11,8 @@ import { DatePipe } from '@angular/common';
 export class StoredFiles {
   private fileService = inject(FileService);
   protected files = this.fileService.storedFiles;
+
+  downloadFile(fileId: string) {
+    this.fileService.downloadFile(fileId);
+  }
 }

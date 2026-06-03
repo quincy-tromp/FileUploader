@@ -17,12 +17,9 @@
 					<td>{{ file.contentType ?? 'N/A' }}</td>
 					<td>{{ file.uploadedAtUtc | date:'long' }}</td>
 					<td>
-						<a [href]="file.url" 
-                            class="input-group-text" 
-                            style="text-decoration: none; display: inline-block;"
-                            [download]="file.originalFileName">
-                        Download
-                        </a>
+						<button class="btn btn-primary" (click)="downloadFile(file.id)">
+                            Download
+                        </button>
 					</td>
 				</tr>
 			}
