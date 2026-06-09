@@ -9,6 +9,10 @@ A simple learning project - upload and download files using .NET API, Angular fr
 - Download files back from the cloud
 - View a list of all uploaded files
 
+## Architecture
+
+![FileUploader Design](./file-uploader-design.png)
+
 ## Stack
 
 - **Backend**: ASP.NET Core Web API (.NET 10)
